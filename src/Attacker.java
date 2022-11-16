@@ -1,5 +1,4 @@
 public interface Attacker {
-
-    public void attack();
+    public void attack(Character defender);
 
 }

@@ -1,13 +1,8 @@
 public abstract class Character {
-
     private String name;
-
     private int hp;
-
     private String id;
-
     private boolean isAlive;
-
     private static Integer counter = 0;
 
     public Character(String name) {
@@ -16,8 +11,12 @@ public abstract class Character {
         setId();
         this.isAlive = true;
     }
-
-
+    /*public Character() {
+        setName();
+        setHp();
+        setId();
+        this.isAlive = true;
+    }*/
 
     public String getName() {
         return name;
@@ -35,6 +34,10 @@ public abstract class Character {
         return isAlive;
     }
 
+    public void setAlive(boolean alive) {
+        this.isAlive = alive;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -44,12 +47,12 @@ public abstract class Character {
     }
 
     public void setId() {
-
         this.id = counter.toString();
         counter++;
     }
 
-    public void setAlive(boolean alive) {
-        isAlive = alive;
+    protected void reduceHp(int hp) {
+        this.hp = hp;
     }
+
 }
