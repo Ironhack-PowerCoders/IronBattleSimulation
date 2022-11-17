@@ -5,9 +5,9 @@ public abstract class Character {
     private boolean isAlive;
     private static Integer counter = 0;
 
-    public Character(String name) {
+    public Character(String name,int hp) {
         this.name = name;
-        setHp();
+        setHp(hp);
         setId();
         this.isAlive = true;
     }
@@ -42,7 +42,7 @@ public abstract class Character {
         this.name = name;
     }
 
-    public void setHp() {
+    public void setHp(int hp) {
         this.hp = hp;
     }
 

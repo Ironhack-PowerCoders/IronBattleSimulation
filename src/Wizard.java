@@ -1,16 +1,15 @@
 import java.util.Random;
 
-public class Wizard extends Character implements Attacker{
+public class Wizard extends Character implements Attacker {
     private int mana;
     private int intelligence;
-    private int hp;
+
     private int manaCounter;
 
     public Wizard(String name) {
-        super(name);
+        super(name, new Random().nextInt(100 - 50 + 1) + 50);
         setMana();
         setIntelligence();
-        setHp();
     }
 
     public int getMana() {
@@ -19,8 +18,8 @@ public class Wizard extends Character implements Attacker{
 
     public void setMana() {
         Random random = new Random();
-        this.mana = random.nextInt(50-10+1)+10;
-        System.out.println("mana "+this.mana);
+        this.mana = random.nextInt(50 - 10 + 1) + 10;
+
         this.manaCounter = this.mana;
     }
 
@@ -30,20 +29,9 @@ public class Wizard extends Character implements Attacker{
 
     public void setIntelligence() {
         Random random = new Random();
-        this.intelligence = random.nextInt(50-1+1)+1;
-        System.out.println("intelligence "+this.intelligence);
-    }
+        this.intelligence = random.nextInt(50 - 1 + 1) + 1;
 
-    public void setHp() {
-        Random random = new Random();
-        this.hp = random.nextInt(100-50+1)+50;
-        System.out.println("hp "+this.hp);
     }
-
-    public int getHp() {
-        return hp;
-    }
-
     public int getManaCounter() {
         return manaCounter;
     }
@@ -51,40 +39,52 @@ public class Wizard extends Character implements Attacker{
     public void setManaCounter(int manaCounter) {
         this.manaCounter = manaCounter;
     }
+
     @Override
     public void attack(Character defender) {
         Random random = new Random();
-        int attack = random.nextInt(2-1+1)+1;
+        int attack = random.nextInt(2 - 1 + 1) + 1;
 
-        if(attack == 1 && (getManaCounter() -5) > 0){
-            setManaCounter(getManaCounter()-5);
-            if(defender.getHp() - getIntelligence() > 0){
+        //ataque poderoso, bola de fuego de 4d6
+        if (attack == 1 && (getManaCounter() - 5) > 0) {
+            setManaCounter(getManaCounter() - 5);
+            if (defender.getHp() - getIntelligence() > 0) {
                 defender.reduceHp(defender.getHp() - getIntelligence());
-            }else{
-                defender.reduceHp(defender.getHp() - getIntelligence());
+                System.out.println(Main.ANSI_PURPLE +"༼つಠ益ಠ༽つ ─=≡ΣO))"+ Main.ANSI_RESET);
+                System.out.println(Main.ANSI_PURPLE + getName()+ " cast an impressive Fireball dealing "
+                        + getIntelligence() + ". "+ defender.getName() + " is alive with "+ defender.getHp()+".\n"+ Main.ANSI_RESET);
+
+            } else {
                 defender.setAlive(false);
                 System.out.println(defender.getName() + " DIED ! ! ! ");
             }
-        }else if (getManaCounter() == 0) {
+        //descanso y a beber poti
+        } else if (getManaCounter() == 0) {
             setManaCounter(getManaCounter() + 2);
-            if(defender.getHp()-(getIntelligence()/2) > 0){
-                defender.reduceHp(defender.getHp() - (getIntelligence()/2));
-            } else{
-                defender.reduceHp(defender.getHp() - (getIntelligence()/2));
-                defender.setAlive(false);
-                System.out.println(defender.getName() + " DIED ! ! ! ");
-            }
-
-        } else{
-            setManaCounter(getManaCounter()+1);
-            if(defender.getHp()-(getIntelligence()/2) > 0){
-                defender.reduceHp(defender.getHp() - (getIntelligence()/2));
-            } else{
-                defender.reduceHp(defender.getHp() - (getIntelligence()/2));
+            System.out.println(Main.ANSI_PURPLE +"(ᕗ ͠° ਊ ͠° )ᕗ"+ Main.ANSI_RESET);
+            System.out.println(Main.ANSI_PURPLE +"sip of water for " + getName()+".\n"+ Main.ANSI_RESET);
+        //ataque de bastón
+        } else {
+            setManaCounter(getManaCounter() + 1);
+            if (defender.getHp() - (getIntelligence() / 2) > 0) {
+                defender.reduceHp(defender.getHp() - (getIntelligence() / 2));
+                System.out.println(Main.ANSI_PURPLE +"(ง •̀_•́)ง"+ Main.ANSI_RESET);
+                System.out.println(Main.ANSI_PURPLE +"What a shameful hit from " +getName()+ ". The defender is alive with " +defender.getHp()+".\n"+ Main.ANSI_RESET);
+            } else {
                 defender.setAlive(false);
                 System.out.println(defender.getName() + " DIED ! ! ! ");
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return Main.ANSI_CYAN+"Wizard called " + getName() + "\n"
+                + "graded in WinterHold with the grade of " + intelligence + "\n" +
+                "and a mana pool of " + mana + "\n"
+                + "with a hp of " + super.getHp() + Main.ANSI_RESET;
+
+
     }
 }
 
