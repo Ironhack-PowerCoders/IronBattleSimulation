@@ -51,7 +51,7 @@ private int staminaCounter;
         Random random = new Random();
         int attack = random.nextInt(2-1+1)+1;
 
-        if(attack == 1 && (getStaminaCounter()-5) > 0){
+        if(attack == 1 && (getStaminaCounter()-5) >= 0){
             setStaminaCounter(getStaminaCounter()-5);
             if(defender.getHp()-getStrength() > 0){
                 defender.reduceHp(defender.getHp() - getStrength());
@@ -60,8 +60,17 @@ private int staminaCounter;
                 defender.setAlive(false);
                 System.out.println(defender.getName() + " DIED ! ! ! ");
             }
-        }else{
-            setStaminaCounter(getStaminaCounter()+1);
+        }else if (getStaminaCounter() == 0){
+            setStaminaCounter(getStaminaCounter() + 2);
+            if(defender.getHp()-(getStrength()/2) > 0){
+                defender.reduceHp(defender.getHp() - (getStrength()/2));
+            } else {
+                defender.reduceHp(defender.getHp() - (getStrength() / 2));
+                setAlive(false);
+                System.out.println(defender.getName() + " DIED ! ! ! ");
+            }
+        }else {
+            setStaminaCounter(getStaminaCounter() + 1);
             if(defender.getHp()-(getStrength()/2) > 0){
                 defender.reduceHp(defender.getHp() - (getStrength()/2));
             } else{

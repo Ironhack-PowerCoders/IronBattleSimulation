@@ -28,6 +28,7 @@ public class Main {
         while(hero.isAlive() || hero.getHp() >=0|| opponent.isAlive()|| opponent.getHp() >= 0){
             ((Attacker) hero).attack(opponent);
             ((Attacker) opponent).attack(hero);
+            break;
         }
     }
 }

@@ -65,7 +65,17 @@ public class Wizard extends Character implements Attacker{
                 defender.setAlive(false);
                 System.out.println(defender.getName() + " DIED ! ! ! ");
             }
-        }else{
+        }else if (getManaCounter() == 0) {
+            setManaCounter(getManaCounter() + 2);
+            if(defender.getHp()-(getIntelligence()/2) > 0){
+                defender.reduceHp(defender.getHp() - (getIntelligence()/2));
+            } else{
+                defender.reduceHp(defender.getHp() - (getIntelligence()/2));
+                defender.setAlive(false);
+                System.out.println(defender.getName() + " DIED ! ! ! ");
+            }
+
+        } else{
             setManaCounter(getManaCounter()+1);
             if(defender.getHp()-(getIntelligence()/2) > 0){
                 defender.reduceHp(defender.getHp() - (getIntelligence()/2));
